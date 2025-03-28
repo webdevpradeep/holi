@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vibrant Holi Celebration</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'Arial', sans-serif;
+        background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        perspective: 1000px;
+      }
+
+      .holi-container {
+        text-align: center;
+        position: relative;
+        width: 100%;
+        max-width: 600px;
+        padding: 20px;
+        z-index: 10;
+      }
+
+      .color-powder {
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        opacity: 0.7;
+        z-index: 1;
+      }
+
+      .greeting {
+        color: white;
+        font-size: 3.5rem;
+        font-weight: bold;
+        text-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        position: relative;
+        z-index: 20;
+        transform: scale(0);
+        animation: pop-in 1s forwards;
+      }
+
+      .sub-greeting {
+        color: #fff176;
+        font-size: 2rem;
+        margin-top: 10px;
+        opacity: 0;
+        animation: fade-in 1.5s forwards 0.5s;
+      }
+
+      .wishes {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+        gap: 10px;
+        opacity: 0;
+        animation: slide-in 1s forwards 1s;
+      }
+
+      .wish-btn {
+        background-color: rgba(255, 255, 255, 0.2);
+        border: 2px solid white;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 30px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+      }
+
+      .wish-btn:hover {
+        background-color: rgba(255, 255, 255, 0.4);
+        transform: scale(1.1);
+      }
+
+      @keyframes color-burst {
+        0% {
+          transform: translate(0, 0) scale(1);
+          opacity: 0.7;
+        }
+        100% {
+          transform: translate(var(--x-move), var(--y-move)) scale(0);
+          opacity: 0;
+        }
+      }
+
+      @keyframes pop-in {
+        0% {
+          transform: scale(0);
+        }
+        80% {
+          transform: scale(1.1);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      @keyframes fade-in {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      @keyframes slide-in {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (max-width: 600px) {
+        .greeting {
+          font-size: 2.5rem;
+        }
+        .sub-greeting {
+          font-size: 1.5rem;
+        }
+        .wishes {
+          flex-direction: column;
+          align-items: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="color-powder-container"></div>
+    <div class="holi-container">
+      <h1 class="greeting">Happy Holi!</h1>
+      <h2 class="sub-greeting">Celebrate the Festival of Colors</h2>
+      <div class="wishes">
+        <a href="#" class="wish-btn">Send Wishes</a>
+        <a href="#" class="wish-btn">Share Joy</a>
+      </div>
+    </div>
+
+    <script>
+      function createColorPowder() {
+        const container = document.getElementById('color-powder-container');
+        const colors = [
+          '#FF6B6B', // Vibrant Red
+          '#4ECDC4', // Teal
+          '#FFA726', // Orange
+          '#66BB6A', // Green
+          '#42A5F5', // Blue
+          '#AB47BC', // Purple
+        ];
+
+        for (let i = 0; i < 50; i++) {
+          const powder = document.createElement('div');
+          powder.classList.add('color-powder');
+
+          // Random positioning
+          powder.style.left = `${Math.random() * 100}%`;
+          powder.style.top = `${Math.random() * 100}%`;
+
+          // Random color
+          powder.style.backgroundColor =
+            colors[Math.floor(Math.random() * colors.length)];
+
+          // Random movement
+          powder.style.setProperty(
+            '--x-move',
+            `${(Math.random() - 0.5) * 300}px`
+          );
+          powder.style.setProperty(
+            '--y-move',
+            `${(Math.random() - 0.5) * 300}px`
+          );
+
+          // Random animation properties
+          powder.style.animationDuration = `${Math.random() * 3 + 2}s`;
+          powder.style.animationDelay = `${Math.random() * 2}s`;
+          powder.style.animation = 'color-burst ease-out forwards';
+
+          container.appendChild(powder);
+        }
+      }
+
+      // Create color powder when page loads
+      window.addEventListener('load', createColorPowder);
+
+      // Add interactivity to wish buttons
+      document.querySelectorAll('.wish-btn').forEach((btn) => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          // You could add social sharing logic here
+          alert('Spread the Holi cheer! 🎨🌈');
+        });
+      });
+    </script>
+  </body>
+</html>
